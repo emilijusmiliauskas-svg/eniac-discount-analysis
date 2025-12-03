@@ -1,83 +1,131 @@
-# Eniac Discount Impact Analysis  
-Exploring whether offering price discounts increases revenue and benefits the business.
+# ENIAC – Discount Strategy and Revenue Performance Evaluation
+
+## Overview
+This project analyzes ENIAC’s discount strategies and their impact on revenue performance.  
+The goal is to determine whether deeper discounts lead to higher overall revenue and how discounting behavior varies by product category, brand, and time.
+
+The project is designed as a storytelling-through-analytics exercise, demonstrating data preparation, transformation, visualization, and business-oriented interpretation.
 
 ---
 
-## Project Overview  
-This project analyzes historical sales data to assess if discounting strategies improve financial outcomes.  
-The goal was **descriptive and prescriptive analysis**.  
-While some business questions requested predictive insights, the dataset did **not provide enough historical depth or column completeness** to build reliable predictive models.
+## Objectives
+- Understand discounting patterns across categories and products.
+- Evaluate revenue uplift relative to discount depth.
+- Identify products with overspending on discounts (margin leakage).
+- Provide guidance for discount strategy optimization.
 
 ---
 
-## Dataset and Source
-Tables analyzed:
-- **products**
-- **orders**
-- **orderlines**
-
-The dataset contained significant structural and quality issues requiring extensive cleaning before valid analysis.
+## Repository Structure
+```
+eniac-discount-analysis/
+│
+├── notebooks/
+│   └── eniac_analysis.ipynb
+│
+├── slides/
+│   └── Eniacs-discount-strategy-and-revenue-performance-evaluation.pdf
+│
+├── data/
+│   ├── raw-data/         (Not included in repo due to size)
+│   └── clean-data/       (Not included in repo due to size)
+│
+└── README.md
+```
 
 ---
 
-## Data Cleaning Process
-Key transformations performed:
+## Data Availability
+Raw and cleaned datasets were not uploaded to GitHub because:
+- Size limitations (GitHub file size limits)
+- Contains sample business-like transactional data
 
-- Removed duplicate entries (SKU-level uniqueness ensured).
+To run the notebook, create:
+
+```
+/data/raw-data/
+/data/clean-data/
+```
+
+Then place the CSV files in the appropriate folder paths.
+
+---
+
+## Key Transformations Performed
+- Removed duplicate entries — enforced SKU-level uniqueness.
 - Standardized product names and category hierarchy.
-- Identified and resolved corrupted price formats (two decimal markers, extra precision).
-- Handled missing values via imputation or selective removal.
-- Converted string timestamps into proper `datetime64` format to enable time–based analysis.
-- Ensured orders existed in both `orders` and `orderlines`.
-- Validated pricing integrity across:
-  - `products.price`
-  - `orderlines.unit_price`
-  - `orders.total_paid`
-- **Outlier removal using IQR box–plot methodology** where extreme values artificially biased averages.
-- Converted price fields to numeric to enable aggregation and statistical exploration.
+- Corrected corrupted price formats (extra decimals, incorrect separators).
+- Imputed missing values or selectively removed rows where needed.
+- Converted timestamp strings into `datetime64` for time-based analysis.
+- Validated referential integrity:
+  - `orders ↔ orderlines`
+- Ensured alignment of pricing fields:
+  - `products.price`, `orderlines.unit_price`, `orders.total_paid`
+- Outlier removal using IQR (box-plot statistical filtering).
+- Converted price fields to numeric to enable aggregation.
+- Verified consistency in categorical labels.
 
 ---
 
 ## Categorization Strategy
 Because product categories were inconsistent:
 
-- Regex + pandas `.str` methods used to derive categories.
-- Brand extracted from SKU and combined with product name to refine classification.
-- Multiple iterative passes were required — **storytelling and context** were essential to decision making.
-- Final categories were optimized for reporting clarity, not perfection.
+- `regex` + `.str.*()` pandas functions used for pattern extraction
+- Brand extracted from SKU and merged with product naming
+- Several iterative classification passes required
+- Final categories optimized for reporting **clarity**, not taxonomic accuracy
+
+Context and business storytelling shaped classification decisions.
 
 ---
 
-## Analytical Focus  
-The core question:  
-**Do deeper discounts correlate with higher revenue?**
+## Analytical Focus
+Primary question:
+> **Do deeper discounts correlate with higher revenue?**
 
-Evaluation included:
+Analysis included:
 - Revenue vs. discount severity
-- Category-specific discount sensitivity
-- Time–based analysis (seasonality & promotions)
+- Category-specific discount responsiveness
+- Seasonal / promotional time-based trends
 
-Findings are summarized visually in the project slides.
+These findings are summarized visually in the slides.
 
 ---
 
 ## Tools Used
 - Google Colab
-- Python
-- Pandas
-- Seaborn (visualization)
+- Python (Pandas, Seaborn)
+- Regex for rule-based classification
 - IQR outlier detection
-- Regex rule–based classification
-- Gamma — presentation slides
+- Presentation built using Gamma
 
 ---
 
 ## Limitations
-- Dataset size limited predictive modeling.
-- Discount effects may depend on external factors not included (competition, inflation, seasonality).
-- Analysis is directional, not causal.
+- Dataset size limits predictive modeling reliability
+- Missing factors: competition, market trends, inflation, seasonality
+- Findings are **directional**, not **causation proof**
+- Discount impact depends on external factors not captured here
 
 ---
 
-## Repository Structure
+## Slides
+The presentation summarizing business insights is located in:
+
+```
+/slides/Eniacs-discount-strategy-and-revenue-performance-evaluation.pdf
+```
+
+---
+
+## About This Project
+This project was created as a portfolio case study to demonstrate capability in:
+- Data cleaning and transformation
+- Exploratory data analysis
+- Business-driven analytics storytelling
+- Communication of insights through slides
+
+It reflects real-world-style issues: unclean data, incomplete categories, and decision-making with uncertainty.
+
+---
 
